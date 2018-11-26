@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 public class PanierService {
 	//Utilise la session pour récupérer un panier
 	private Panier leP;
+	double totalPrice = 0;
 	
 	public List<PanierItem> getLaListe(HttpSession session) {
 		leP = getLePanier(session);
@@ -34,5 +35,12 @@ public class PanierService {
 	
 	public void clearSession(HttpSession session) {
 		session.removeAttribute("panier");
+	}
+	
+	public double total(HttpSession session) {
+		for(PanierItem pi : getLaListe(session)) {
+			totalPrice += pi.getNbProduit()*pi.getPrix();
+		}
+		return totalPrice;
 	}
 }

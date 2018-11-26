@@ -24,7 +24,11 @@
 	}
 	
 	function payer(){
-		window.location = "redirectPaiement.jsp";
+		if(document.getElementById("produit"+0) == null){
+			window.location = "index.jsp";
+		}else{
+			window.location = "redirectPaiement.jsp";
+		}
 	}
 </script>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -33,7 +37,7 @@
 <body>
 	<h1>Panier</h1>
 	<form action="redirectPanier.jsp" method="post" id="form">
-		<table>
+		<table border="2px solid">
 			<tr>
 				<th>Code Produit</th>
 				<th>Désignation</th>
@@ -50,19 +54,18 @@
 				<td><%=bi.getDesignItem()%></td>
 				<td><input type="text" id="produit<%=i%>" name="leP<%=i%>"
 					value="<%=bi.getNbProduit()%>" /></td>
-				<td><%=bi.getPrix() * bi.getNbProduit()%></td>
+				<td><%=bi.getPrix() * bi.getNbProduit()%> E</td>
 				<td><input type="button" value="Detruire" id="delete<%=1%>"
 					name="leDelete<%=i%>" onclick="myDelete(<%=i%>)" /></td>
 			</tr>
 			<%
-					prixTotal += bi.getPrix() * bi.getNbProduit();
 					i++;
 				}
 			%>
 		</table>
 		<h3>
 			Prix total :
-			<%=prixTotal%></h3>
+			<%=ps.total(session)%> E</h3>
 		<input type="button" value="Payer" id="sub" onclick="payer()" /> <input
 			type="button" value="Continuer les achats" onclick="continuer()" />
 		<input type="submit" value="Mettre a jour" id="maj" />

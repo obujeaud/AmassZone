@@ -27,7 +27,7 @@ function payer(){
 <body>
 	<h1>Panier</h1>
 	<form action="redirectPaiement.jsp" method="post" id="form">
-		<table>
+		<table border="2px solid">
 			<tr>
 				<th>Code Produit</th>
 				<th>Désignation</th>
@@ -40,16 +40,15 @@ function payer(){
 				<td><%=bi.getCodeItem()%></td>
 				<td><%=bi.getDesignItem()%></td>
 				<td><%=bi.getNbProduit()%></td>
-				<td><%=bi.getPrix() * bi.getNbProduit()%></td>
+				<td><%=bi.getPrix() * bi.getNbProduit()%> E</td>
 			</tr>
 			<%
-				prixTotal += bi.getPrix() * bi.getNbProduit();
 				}
 			%>
 		</table>
 		<h3>
 			Prix total :
-			<%=prixTotal%></h3>
+			<%=ps.total(session)%> E</h3>
 		<input type="button" value="Payer" id="sub" onclick="payer()" /> <input
 			type="button" value="Retour au site" onclick="continuer()" />
 	</form>
