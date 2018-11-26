@@ -1,3 +1,4 @@
+<%@page import="service.PanierService"%>
 <%@page import="service.Panier"%>
 <%@page import="java.awt.List"%>
 <%@page import="java.util.ArrayList"%>
@@ -12,11 +13,8 @@
 	BoutiqueDao bdao = new BoutiqueDao();
 %>
 <script>
-function submit(id){
-	var but = document.getElementById("leIdHid");
-	var formulaire = document.getElementById("form");
-	but.value = id;
-	formulaire.submit();
+function mysubmit(id){
+	window.location = "redirectPanier.jsp?leId="+id+"";
 }
 </script>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -24,7 +22,7 @@ function submit(id){
 </head>
 <body>
 	<h1>Bienvenue sur AmasseZone.fr</h1>
-	<form action="redirectPanier.jsp" method="post" id="form">
+	<form action="redirectPanier.jsp" method="get" id="form">
 		<table border="2px solid">
 			<tr>
 				<th>ID Produit</th>
@@ -41,13 +39,15 @@ function submit(id){
 				<td><%=b.getLabel()%></td>
 				<td><%=b.getPrice()%></td>
 				<td><input type="button" id="ajoutItem"
-					value="Ajouter au panier" onclick="submit(<%=b.getId() %>)" /></td>
+					value="Ajouter au panier" onclick="mysubmit(<%=b.getId()%>)" /></td>
 			</tr>
 			<%
 				}
 			%>
 		</table>
-		<input type="hidden" id="leIdHid" name="idHid" value="" />
+	</form>
+	<form action="panier.jsp" method="get">
+		<input type="submit" id="voirPanier" value="Voir panier" />
 	</form>
 </body>
 </html>
